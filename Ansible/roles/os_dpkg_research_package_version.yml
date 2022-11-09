@@ -1,0 +1,25 @@
+- hosts: all
+  gather_facts: true
+  become: true
+  become_user: root
+
+  vars_prompt:
+
+    - name: package
+      prompt: Name of package ?
+      private: no
+
+  tasks:
+    - name: Research package version
+      raw: "dpkg -l | awk '{print $2 \" => \" $3 }'|  grep -w {{ package }}"
+      register: my_command_output
+      ignore_errors: true
+      delay: 1
+
+    - name: copy the output to a local file
+      lineinfile:
+        path: /tmp/{{package}}.txt
+        line: "============{{ansible_eth0.ipv4.address}}============
+         \n\n {{my_command_output.stdout}}"
+        create: yes
+      delegate_to: localhost
