@@ -1,0 +1,11 @@
+# Read more about SSH config files: https://linux.die.net/man/5/ssh_config
+Host devboxes
+    HostName 172.24.90.242
+    User vagrant
+    Port 22
+    UserKnownHostsFile /dev/null
+    StrictHostKeyChecking no
+    PasswordAuthentication no
+    IdentityFile C:/Users/Clement/Git/my-vagrant-box/.vagrant/machines/devbox/hyperv/private_key
+    IdentitiesOnly yes
+    LogLevel FATAL
